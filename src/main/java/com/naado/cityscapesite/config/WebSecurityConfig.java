@@ -49,10 +49,11 @@ public class WebSecurityConfig {
             UserDetails user = User.withDefaultPasswordEncoder()
                     .username(u.getNickname())
                     .password(u.getPassword())
+                    .roles(u.getRole().getNome())
                     .build();
             usersAuth.add(user);
 
-            System.out.println(u.getNickname() + " : " + u.getPassword());
+            System.out.println(u.getNickname() + " : " + u.getPassword() + " " + u.getRole().getNome());
         }
 
         return new InMemoryUserDetailsManager(usersAuth);

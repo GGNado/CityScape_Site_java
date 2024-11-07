@@ -26,4 +26,8 @@ public class ServerAccount {
 
     @OneToMany(mappedBy = "serverAccount", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Town> towns;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="roles_id", referencedColumnName = "id")
+    private Role role;
 }

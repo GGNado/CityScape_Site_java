@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Requests Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container my-5">
+  <h1 class="mb-4">Requests Dashboard</h1>
+
+  <!-- Tabella per visualizzare le richieste -->
+  <table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Problem</th>
+      <th>Email</th>
+      <th>Text</th>
+      <th>Actions</th> <!-- Colonna per le azioni -->
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Ciclo per visualizzare ogni richiesta -->
+    <tr th:each="request : ${requests}">
+      <td th:text="${request.id}"></td>
+      <td th:text="${request.problem}"></td>
+      <td th:text="${request.mail}"></td>
+      <td th:text="${request.text}"></td>
+      <td>
+        <!-- Pulsante di eliminazione -->
+        <form th:action="@{/delete/{id}(id=${request.id})}" method="post" style="display:inline;">
+          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this request?');">
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Script di Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

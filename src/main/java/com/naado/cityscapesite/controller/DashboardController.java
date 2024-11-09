@@ -5,8 +5,7 @@ import com.naado.cityscapesite.repository.RepoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,10 +18,15 @@ public class DashboardController {
     @GetMapping()
     public String dashboardPage(Model model){
         List<Request> requestList = repoRequest.findAll();
-        System.out.println(requestList);
         model.addAttribute("requests", requestList);
         return "dashboard";
     }
 
-    //doDelete
+    @PostMapping("/deleteRequest/{id}")
+    public String deleteRequest(@PathVariable int id, Model model){
+        repoRequest.deleteById(id);
+        List<Request> requestList = repoRequest.findAll();
+        model.addAttribute("requests", requestList);
+        return "dashboard";
+    }
 }

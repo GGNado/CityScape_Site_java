@@ -15,7 +15,6 @@
             overflow: hidden;
         }
 
-        /* Pseudo-element for blurred background */
         .hero-section::before {
             content: "";
             position: absolute;
@@ -26,11 +25,10 @@
             background-image: url('/images/city.jpg');
             background-size: cover;
             background-position: center;
-            filter: blur(5px); /* Blur effect */
-            z-index: 1; /* Ensures background stays behind text */
+            filter: blur(5px);
+            z-index: 1;
         }
 
-        /* Dark overlay to increase text contrast */
         .hero-overlay {
             position: relative;
             z-index: 2;
@@ -46,6 +44,15 @@
             color: white;
             padding: 20px 0;
             text-align: center;
+        }
+        .carousel-inner img {
+            width: 100%;
+            height: 400px; /* Adjust the height as needed */
+            object-fit: cover;
+        }
+        .carousel-container {
+            max-width: 700px; /* Adjust the width as needed */
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -68,7 +75,6 @@
             <ul class="navbar-nav ms-auto" sec:authorize="!isAuthenticated()">
                 <li class="nav-item"><a class="nav-link" th:href="@{/contact}">Contact</a></li>
             </ul>
-
         </div>
     </div>
 </nav>
@@ -84,11 +90,57 @@
     </div>
 </section>
 
+<div sec:authorize="!isAuthenticated()" class="alert alert-warning text-center mt-5">
+    <h4>Access Denied</h4>
+    <p>You must log in to view city information.</p>
+    <a href="/login" class="btn btn-primary">Log In</a>
+</div>
+
+
 <section th:if="${banner == true}" class="alert alert-success text-center mt-4">
     <h4 class="alert-heading">Request Sent Successfully</h4>
     <p>Your request has been submitted correctly. You will receive a response shortly.</p>
 </section>
 
+<!-- Featured Towns Carousel -->
+<section id="featured-towns" class="py-5" sec:authorize="!isAuthenticated()">
+    <div class="container carousel-container">
+        <h2 class="text-center mb-5">Featured Towns</h2>
+        <div id="townsCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/images/town1.jpg" class="d-block w-100" alt="Town 1">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Town 1</h5>
+                        <p>Beautiful landscapes and vibrant community.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="/images/town2.jpg" class="d-block w-100" alt="Town 2">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Town 2</h5>
+                        <p>Rich history and modern amenities.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="/images/town3.jpg" class="d-block w-100" alt="Town 3">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Town 3</h5>
+                        <p>Perfect blend of nature and technology.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#townsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#townsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
 
 <!-- Top Towns Section -->
 <section id="top-towns" class="py-5" sec:authorize="isAuthenticated()">
@@ -108,14 +160,6 @@
         </div>
     </div>
 </section>
-
-
-<div sec:authorize="!isAuthenticated()" class="alert alert-warning text-center mt-5">
-    <h4>Access Denied</h4>
-    <p>You must log in to view city information.</p>
-    <a href="/login" class="btn btn-primary">Log In</a>
-</div>
-
 <!-- Towns with Most Citizens Section -->
 <section id="most-citizens" class="py-5 bg-light" sec:authorize="isAuthenticated()">
     <div class="container">
@@ -128,6 +172,45 @@
                         <p class="card-text"><i class="bi bi-people-fill"></i> Citizens: <span th:text="${town.getCitizenCount()}">0</span></p>
                         <p class="card-text"><i class="bi bi-geo-alt-fill"></i> Regions Claimed: <span th:text="${town.getRegionsCount()}">0</span></p>
                         <a href="#" class="btn btn-outline-primary btn-sm">View Town</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Recent News Section -->
+<section id="recent-news" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Recent CityScape Plugin News</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="/images/news1.jpg" class="card-img-top" alt="News 1">
+                    <div class="card-body">
+                        <h5 class="card-title">News Title 1</h5>
+                        <p class="card-text">Brief description of the news content.</p>
+                        <a href="#" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="/images/news2.jpg" class="card-img-top" alt="News 2">
+                    <div class="card-body">
+                        <h5 class="card-title">News Title 2</h5>
+                        <p class="card-text">Brief description of the news content.</p>
+                        <a href="#" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="/images/news3.jpg" class="card-img-top" alt="News 3">
+                    <div class="card-body">
+                        <h5 class="card-title">News Title 3</h5>
+                        <p class="card-text">Brief description of the news content.</p>
+                        <a href="#" class="btn btn-primary">Read More</a>
                     </div>
                 </div>
             </div>

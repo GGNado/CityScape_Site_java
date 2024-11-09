@@ -26,4 +26,9 @@ public class Request {
     @Column(nullable = false)
     @Lob
     private String text;
+
+
+    public String getProbleName(){
+        return problem.name();
+    }
 }

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +29,12 @@ public class ContactController {
     }
 
     @PostMapping("/sendInfo")
-    public String sendInfo(Request request, Model model) {
+    public String sendInfo(Request request, Model model, RedirectAttributes redirectAttributes) {
         repoRequest.save(request);
-        model.addAttribute("banner", true);
+        redirectAttributes.addFlashAttribute("banner", true);
 
         List<Request> requests = repoRequest.findAll();
         System.out.println(requests);
-        return "home";
+        return "redirect:/";
     }
 }

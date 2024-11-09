@@ -1,7 +1,9 @@
 package com.naado.cityscapesite.controller;
 
+import com.naado.cityscapesite.model.News;
 import com.naado.cityscapesite.model.ServerAccount;
 import com.naado.cityscapesite.model.Town;
+import com.naado.cityscapesite.repository.RepoNews;
 import com.naado.cityscapesite.repository.RepoTown;
 import com.naado.cityscapesite.repository.ServerAccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +26,19 @@ public class HomeController {
     RepoTown repoTown;
 
     @Autowired
+    RepoNews repoNews;
+
+    @Autowired
     ServerAccountRepo serverAccountRepo;
 
     @GetMapping("/")
     public String showHomePage(Model model) {
         List<Town> towns = new ArrayList<>();
         List<Town> topCitizens = new ArrayList<>();
+        List<News> news = repoNews.findByIsFeatured(true);
+
+
+        model.addAttribute("news", news);
 
         Integer userId = getAuthenticatedUserId();
         if (userId != null) {

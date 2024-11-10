@@ -33,7 +33,7 @@ public class DashboardController {
         repoRequest.deleteById(id);
         List<Request> requestList = repoRequest.findAll();
         model.addAttribute("requests", requestList);
-        return "dashboard";
+        return "redirect:/dashboard";
     }
 
     @PostMapping("/addNews")
@@ -46,6 +46,12 @@ public class DashboardController {
     @PostMapping("/updateNews/{id}")
     public String updateNews(@PathVariable int id, News news, Model model){
         repoNews.save(news);
+        return "redirect:/dashboard";
+    }
+
+    @PostMapping("/deleteNews/{id}")
+    public String deleteNews(@PathVariable int id, Model model){
+        repoNews.deleteById(id);
         return "redirect:/dashboard";
     }
 }

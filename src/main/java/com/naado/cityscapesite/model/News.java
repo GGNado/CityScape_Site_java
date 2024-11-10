@@ -20,9 +20,11 @@ public class News {
     private String title;
 
     @Column(nullable = false)
+    @Lob
     private String text;
 
     @Column(nullable = false)
+    @Lob
     private String imagePath;
 
     @Column(nullable = false, columnDefinition = "boolean default false")

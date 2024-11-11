@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -46,4 +48,8 @@ public class Town {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "server_account_nickname", referencedColumnName = "nickname", nullable = false)
     private ServerAccount serverAccount;
+
+    @OneToMany(mappedBy = "town", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Citizen> citizens;
+
 }

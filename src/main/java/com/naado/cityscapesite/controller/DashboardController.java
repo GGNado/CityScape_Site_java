@@ -54,4 +54,4 @@ public class DashboardController {
         repoNews.deleteById(id);
         return "redirect:/dashboard";
     }
-}
+} 

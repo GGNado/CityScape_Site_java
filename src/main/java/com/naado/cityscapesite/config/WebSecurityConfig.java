@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,7 @@ public class WebSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/contact/**", "/images/**", "/contact/sendInfo").permitAll() // Consenti l'accesso a tutto il contenuto in /images/
+                        .requestMatchers("/", "/home", "/contact/**", "/images/**", "/contact/sendInfo", "/getTowns/json").permitAll() // Consenti l'accesso a tutto il contenuto in /images/
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
@@ -58,5 +60,19 @@ public class WebSecurityConfig {
         }
 
         return new InMemoryUserDetailsManager(usersAuth);
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:4200")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
+            }
+        };
     }
 }

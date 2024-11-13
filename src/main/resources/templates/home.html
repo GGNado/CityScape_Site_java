@@ -164,7 +164,8 @@
                 <div class="card town-card">
                     <div class="card-body text-center">
                         <h5 class="card-title" th:text="${town.townName}">Town Name</h5>
-                        <p class="card-text"><i class="bi bi-coin"></i> Gold: <span th:text="${town.goldBank}">0</span></p>
+                        <p class="card-text"><i class="bi bi-award-fill"></i> Mayor: <span th:text="${town.getMayor()}">0</span></p>
+                        <p class="card-text"><i class="bi bi-cash"></i> Gold: <span th:text="${town.goldBank}">0</span></p>
                         <p class="card-text"><i class="bi bi-geo-alt-fill"></i> Regions Claimed: <span th:text="${town.goldBank}">0</span></p>
                         <a href="#" class="btn btn-outline-primary btn-sm">View Town</a>
                     </div>
